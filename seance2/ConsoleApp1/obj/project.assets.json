@@ -27,7 +27,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\abden\\.nuget\\packages\\": {}
+    "C:\\Users\\Abdenour\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
@@ -35,11 +36,15 @@
       "projectUniqueName": "D:\\IPL\\.NET\\seance2\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
       "projectPath": "D:\\IPL\\.NET\\seance2\\ConsoleApp1\\ConsoleApp1.csproj",
-      "packagesPath": "C:\\Users\\abden\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\Abdenour\\.nuget\\packages\\",
       "outputPath": "D:\\IPL\\.NET\\seance2\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\abden\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Abdenour\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

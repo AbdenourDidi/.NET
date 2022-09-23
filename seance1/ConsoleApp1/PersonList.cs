@@ -14,7 +14,7 @@ namespace ConsoleApp1
 
         private PersonList()
         {
-            this._personMapp = new Dictionary<String, Person>();
+            this._personMap = new Dictionary<String, Person>();
         }
 
         public static PersonList getInstance()
@@ -29,13 +29,13 @@ namespace ConsoleApp1
         public void AddPerson(Person person)
         {
             if (person == null)
-                throw new InvalidParameterException();
-            _personMap.put(person.getName(), person);
+                throw new InvalidOperationException();
+            _personMap.Add(person.Name, person);
         }
 
         public IEnumerator<Person> personList()
         {
-            return personMap.Values.GetEnumerator();
+            return _personMap.Values.GetEnumerator();
         }
 
     }

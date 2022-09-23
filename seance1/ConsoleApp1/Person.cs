@@ -11,32 +11,31 @@ using System.Data;
 namespace ConsoleApp1
 {
     [Serializable]
-    internal class Person : ISerializable
+    internal class Person 
     {
 
-        private static readonly long _serialVersionUID = 1L;
 
-        private readonly String _name;
-        private readonly String _firstname;
+        private readonly string _name;
+        private readonly string _firstname;
         private readonly DateTime _birthDate;
 
-        public String Name
+        public virtual string Name
         {
             get { return _name; }
         }
 
-        public String Firstname
+        public string Firstname
         {
             get { return _firstname; }
         }
 
-        public String BirthDate
+        public string BirthDate
         {
             get { return _birthDate.ToString(); }
         }
 
 
-        public Person(String _name, String _firstname, DateTime _birthDate)
+        public Person(string _name, string _firstname, DateTime _birthDate)
         {
             this._name = _name;
             this._firstname = _firstname;

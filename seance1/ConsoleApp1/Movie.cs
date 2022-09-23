@@ -11,10 +11,10 @@ namespace ConsoleApp1
 
         private string _title;
         private int _releaseYear;
-        private List<Actor> actors;
+        private List<Actor> _actors;
         private Director? _director;
 
-        public Movie(String title, int releaseYear)
+        public Movie(string title, int releaseYear)
         {
             _actors = new List<Actor>();
             this._title = title;
@@ -51,7 +51,7 @@ namespace ConsoleApp1
             if (_actors.Contains(actor))
                 return false;
 
-            _actors.add(actor);
+            _actors.Add(actor);
             if (!actor.ContainsMovie(this))
                 actor.AddMovie(this);
 
@@ -60,7 +60,7 @@ namespace ConsoleApp1
 
         public bool ContainsActor(Actor actor)
         {
-            return actors.Contains(actor);
+            return _actors.Contains(actor);
         }
 
         public override string ToString()

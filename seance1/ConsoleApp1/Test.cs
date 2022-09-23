@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks
+using System.Threading.Tasks;
 
 namespace ConsoleApp1
 {
@@ -13,9 +13,11 @@ namespace ConsoleApp1
         public static void Main(String[] args)
         {
 
+            Console.WriteLine("MAIN");
+
             Actor[] myActors =  {
                 new Actor( "Assange", "Julian", new DateTime(1961, 6, 3), 187),
-                new Actor( "Paul", "Newmann", new DateTime(1925, 0, 26), 187),
+                new Actor( "Paul", "Newmann", new DateTime(1925, 1, 26), 187),
                 new Actor( "Becker", "Norma Jean", new DateTime(1926, 5, 1), 187)
         };
 
@@ -51,7 +53,7 @@ namespace ConsoleApp1
             }
 
             IEnumerator<Person> ActorIt = myPersons.personList();
-            while (ActorIt.hasNext())
+            while (ActorIt.MoveNext())
             {
                 Person person = ActorIt.Current;
                 Console.WriteLine(person);
@@ -73,7 +75,7 @@ namespace ConsoleApp1
                         continue;
                     }
                 }
-                while (MoviesIt.hasNext())
+                while (MoviesIt.MoveNext())
                 {
                     Movie Movie = MoviesIt.Current;
                     Console.WriteLine(Movie);

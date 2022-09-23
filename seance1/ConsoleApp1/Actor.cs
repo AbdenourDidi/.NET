@@ -34,7 +34,7 @@ public Actor(string name, string firstname, DateTime birthDate, int sizeInCentim
 
 
 
-    public string ToString()
+    public override string ToString()
 {
     return "Actor [name = " + Name + " firstname = " + Firstname + " sizeInCentimeter = " + SizeInCentimeter() + " birthdate = " + BirthDate + "]";
 }
@@ -55,25 +55,25 @@ public IEnumerator<Movie> Movies()
  */
 public bool AddMovie(Movie movie)
 {
-    if ((movie == null) || movies.contains(movie))
+    if ((movie == null) || _movies.Contains(movie))
         return false;
 
-    if (!movie.containsActor(this))
-        movie.addActor(this);
+    if (!movie.ContainsActor(this))
+        movie.AddActor(this);
 
-    _movies.add(movie);
+    _movies.Add(movie);
 
     return true;
 }
 
 public bool ContainsMovie(Movie movie)
 {
-    return _movies.contains(movie);
+    return _movies.Contains(movie);
 }
 
     public override string Name
 {
-      get { return base.Name.toUpper(); }
+      get { return base.Name.ToUpper(); }
 }
 }
 }

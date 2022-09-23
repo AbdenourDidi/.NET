@@ -13,7 +13,7 @@ namespace ConsoleApp1
 
     private List<Movie> _directedMovies;
 
-    public Director(string name, string firstname, DateTime birthDate) : base(name, birthDate, firstname)
+    public Director(string name, string firstname, DateTime birthDate) : base(name, firstname, birthDate)
     {
     this._directedMovies = new List<Movie>();
     }

@@ -1,12 +1,8 @@
 ﻿
 using LINQDataContext;
+using static System.Collections.Specialized.BitVector32;
 
 DataContext dc = new DataContext();
-Course c = new Course();
-Grade gr = new Grade();
-Professor p = new Professor();
-Section sec = new Section();
-Student st = new Student();
 
 //test
 /*Student? jdepp = (from student in dc.Students
@@ -65,7 +61,7 @@ foreach(var s in listStudent)
 /*
 var listStudent = from s in dc.Students
                  where s.Section_ID == 1110
-                 orderby s.Year_Result 
+                 orderby s.Last_Name
                  select new { nom = s.Last_Name, prenom = s.First_Name, resultat = s.Year_Result };
 
 foreach (var s in listStudent)
@@ -75,29 +71,69 @@ foreach (var s in listStudent)
 
 //exo 4.1
 /*
-IEnumerable<Student> listStudent = from s in dc.Students
-                                   select s;
-
-Console.WriteLine(listStudent.Average(c => c.Year_Result));
+double moyenne = dc.Students.Average(s => s.Year_Result);
+Console.WriteLine("Moyenne = " + moyenne);
 */
 
 
 //exo 4.5
 /*
-IEnumerable<Student> listStudent = from s in dc.Students
-                                   select s;
-
-Console.WriteLine(listStudent.Count());
+int nbLignes = dc.Students.Count();
+Console.WriteLine("count = " + nbLignes);
 */
 
 
 //exo 5.1
-//TODO
+/*
+var sectionResult = from s in dc.Students
+                    group s by s.Section_ID;
+
+foreach(IGrouping<Int32, Student> section in dc.Students)
+{
+    Console.WriteLine("Le max de la section {0} est {1}", section.Key, section.Max(s => s.Year_Result));
+
+}*/
 
 
 //exo 5.3
+/*
 var listStudent = from s in dc.Students
-                 //  join  in Student on s.BirthDate.Month equals month.
-                  where s.BirthDate.Year < 1985 && s.BirthDate.Year>1970
-                  select new { resultat = s.Year_Result };
+                  where (s.BirthDate.Year <= 1985 && s.BirthDate.Year>=1970)
+                  group s by s.BirthDate.Month;
 
+foreach(IGrouping<Int32, Student> s in listStudent)
+{
+    Console.WriteLine("Mois : " + s.Key);
+    Console.WriteLine("result moyen : " + s.Average(s => s.Year_Result));
+}*/
+
+//exo 5.5
+/*
+var query = from Cours in dc.Courses
+            join prof in dc.Professors on Cours.Professor_ID equals prof.Professor_ID
+            join sect in dc.Sections on prof.Section_ID equals sect.Section_ID
+            select new { Cours.Course_Name, prof.Professor_Name, sect.Section_Name };
+
+
+foreach(var s in query)
+{
+    Console.WriteLine(s.Course_Name + " " + s.Section_Name + " " + s.Professor_Name);
+
+
+}*/
+
+//exo 5.7
+/*
+var query = from s in dc.Sections
+               join prof in dc.Professors on s.Section_ID equals prof.Section_ID into sectProfs
+               select new { nomsection = s.Section_Name, nomsprofs = sectProfs };
+
+
+foreach (var s in query)
+{
+    Console.WriteLine("Section : " + s.nomsection);
+    foreach (Professor p in s.nomsprofs)
+    {
+        Console.WriteLine("Prof : " + p.Professor_Name);
+    }
+}*/

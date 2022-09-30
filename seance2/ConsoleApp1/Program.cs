@@ -88,7 +88,7 @@ Console.WriteLine("count = " + nbLignes);
 var sectionResult = from s in dc.Students
                     group s by s.Section_ID;
 
-foreach(IGrouping<Int32, Student> section in dc.Students)
+foreach(IGrouping<Int32, Student> section in sectionResult)
 {
     Console.WriteLine("Le max de la section {0} est {1}", section.Key, section.Max(s => s.Year_Result));
 

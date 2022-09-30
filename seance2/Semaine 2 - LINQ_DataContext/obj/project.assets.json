@@ -8,8 +8,7 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\Abdenour\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\abden\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
@@ -17,15 +16,11 @@
       "projectUniqueName": "D:\\IPL\\.NET\\seance2\\Semaine 2 - LINQ_DataContext\\LINQ_DataContext.csproj",
       "projectName": "LINQ_DataContext",
       "projectPath": "D:\\IPL\\.NET\\seance2\\Semaine 2 - LINQ_DataContext\\LINQ_DataContext.csproj",
-      "packagesPath": "C:\\Users\\Abdenour\\.nuget\\packages\\",
+      "packagesPath": "C:\\Users\\abden\\.nuget\\packages\\",
       "outputPath": "D:\\IPL\\.NET\\seance2\\Semaine 2 - LINQ_DataContext\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Abdenour\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\abden\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

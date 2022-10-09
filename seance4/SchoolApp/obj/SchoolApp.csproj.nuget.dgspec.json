@@ -10,11 +10,15 @@
         "projectUniqueName": "D:\\IPL\\.NET\\seance4\\SchoolApp\\SchoolApp.csproj",
         "projectName": "SchoolApp",
         "projectPath": "D:\\IPL\\.NET\\seance4\\SchoolApp\\SchoolApp.csproj",
-        "packagesPath": "C:\\Users\\abden\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\Abdenour\\.nuget\\packages\\",
         "outputPath": "D:\\IPL\\.NET\\seance4\\SchoolApp\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\abden\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Abdenour\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [

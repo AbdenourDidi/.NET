@@ -22,7 +22,7 @@ repoSect.Save(sectDiet, (s => s.Name == "sectDiet"));
 
 
 //question
-IList<Section> listSection = baseRepositorySQLSection.GetAll();
+IList<Section> listSection = repoSect.GetAll();
 
 
 

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "Kge9UhGXTSWCpjvGrDEF3rmVrvRLh6S1rdZ85oLkeO9umw5jmOY3B2OXbYV1LicCd/ilmYIgiS66Z6ohUS3IOg==",
+  "success": true,
+  "projectFilePath": "D:\\IPL\\.NET\\seance4\\Bank_Minimal_API\\Bank_Minimal_API.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\abden\\.nuget\\packages\\microsoft.extensions.apidescription.server\\3.0.0\\microsoft.extensions.apidescription.server.3.0.0.nupkg.sha512",
+    "C:\\Users\\abden\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\abden\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
+    "C:\\Users\\abden\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",
+    "C:\\Users\\abden\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.2.3\\swashbuckle.aspnetcore.swaggergen.6.2.3.nupkg.sha512",
+    "C:\\Users\\abden\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.2.3\\swashbuckle.aspnetcore.swaggerui.6.2.3.nupkg.sha512"
+  ],
+  "logs": []
+}

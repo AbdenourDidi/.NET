@@ -3,7 +3,8 @@ using Nortwind_API.Repository;
 
 namespace Nortwind_API.UnitsOfWork
 {
-     class UnitOfWorkNortwindMemory : IUnitOfWorkNortwind
+    
+     class UnitOfWorkNortwindMemory : IUnitOfWorkNorthwind
     {
         private EmployeeRepositoryMemory _employeeRepository;
 

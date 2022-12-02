@@ -4,7 +4,7 @@ using Nortwind_API.Models;
 
 namespace Nortwind_API.Repository
 {
-    public class BaseRepositorySQL<TEntity> : IRepository<TEntity> where TEntity : class
+   public class BaseRepositorySQL<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected readonly NorthwindContext _dbContext;
 

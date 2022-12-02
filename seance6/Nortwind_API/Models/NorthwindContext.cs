@@ -25,7 +25,7 @@ namespace Nortwind_API.Models
         public virtual DbSet<CustomerDemographic> CustomerDemographics { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
         public virtual DbSet<Invoice> Invoices { get; set; } = null!;
-        public virtual DbSet<Employee> Orders { get; set; } = null!;
+        public virtual DbSet<Order> Orders { get; set; } = null!;
         public virtual DbSet<OrderDetail> OrderDetails { get; set; } = null!;
         public virtual DbSet<OrderDetailsExtended> OrderDetailsExtendeds { get; set; } = null!;
         public virtual DbSet<OrderSubtotal> OrderSubtotals { get; set; } = null!;
@@ -57,24 +57,87 @@ namespace Nortwind_API.Models
         {
             modelBuilder.Entity<AlphabeticalListOfProduct>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Alphabetical list of products");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.QuantityPerUnit).HasMaxLength(20);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
+            });
+
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.HasIndex(e => e.CategoryName, "CategoryName");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.Description).HasColumnType("ntext");
+
+                entity.Property(e => e.Picture).HasColumnType("image");
             });
 
             modelBuilder.Entity<CategorySalesFor1997>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Category Sales for 1997");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.CategorySales).HasColumnType("money");
             });
 
             modelBuilder.Entity<CurrentProductList>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Current Product List");
 
-                entity.Property(e => e.ProductId).ValueGeneratedOnAdd();
+                entity.Property(e => e.ProductId)
+                    .ValueGeneratedOnAdd()
+                    .HasColumnName("ProductID");
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
             });
 
             modelBuilder.Entity<Customer>(entity =>
             {
-                entity.Property(e => e.CustomerId).IsFixedLength();
+                entity.HasIndex(e => e.City, "City");
+
+                entity.HasIndex(e => e.CompanyName, "CompanyName");
+
+                entity.HasIndex(e => e.PostalCode, "PostalCode");
+
+                entity.HasIndex(e => e.Region, "Region");
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Address).HasMaxLength(60);
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.ContactName).HasMaxLength(30);
+
+                entity.Property(e => e.ContactTitle).HasMaxLength(30);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.Fax).HasMaxLength(24);
+
+                entity.Property(e => e.Phone).HasMaxLength(24);
+
+                entity.Property(e => e.PostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.Region).HasMaxLength(15);
 
                 entity.HasMany(d => d.CustomerTypes)
                     .WithMany(p => p.Customers)
@@ -96,7 +159,19 @@ namespace Nortwind_API.Models
 
             modelBuilder.Entity<CustomerAndSuppliersByCity>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Customer and Suppliers by City");
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.ContactName).HasMaxLength(30);
+
+                entity.Property(e => e.Relationship)
+                    .HasMaxLength(9)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<CustomerDemographic>(entity =>
@@ -104,11 +179,52 @@ namespace Nortwind_API.Models
                 entity.HasKey(e => e.CustomerTypeId)
                     .IsClustered(false);
 
-                entity.Property(e => e.CustomerTypeId).IsFixedLength();
+                entity.Property(e => e.CustomerTypeId)
+                    .HasMaxLength(10)
+                    .HasColumnName("CustomerTypeID")
+                    .IsFixedLength();
+
+                entity.Property(e => e.CustomerDesc).HasColumnType("ntext");
             });
 
             modelBuilder.Entity<Employee>(entity =>
             {
+                entity.HasIndex(e => e.LastName, "LastName");
+
+                entity.HasIndex(e => e.PostalCode, "PostalCode");
+
+                entity.Property(e => e.Address).HasMaxLength(60);
+
+                entity.Property(e => e.BirthDate).HasColumnType("datetime");
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.Extension).HasMaxLength(4);
+
+                entity.Property(e => e.FirstName).HasMaxLength(10);
+
+                entity.Property(e => e.HireDate).HasColumnType("datetime");
+
+                entity.Property(e => e.HomePhone).HasMaxLength(24);
+
+                entity.Property(e => e.LastName).HasMaxLength(20);
+
+                entity.Property(e => e.Notes).HasColumnType("ntext");
+
+                entity.Property(e => e.Photo).HasColumnType("image");
+
+                entity.Property(e => e.PhotoPath).HasMaxLength(255);
+
+                entity.Property(e => e.PostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.Region).HasMaxLength(15);
+
+                entity.Property(e => e.Title).HasMaxLength(30);
+
+                entity.Property(e => e.TitleOfCourtesy).HasMaxLength(25);
+
                 entity.HasOne(d => d.ReportsToNavigation)
                     .WithMany(p => p.InverseReportsToNavigation)
                     .HasForeignKey(d => d.ReportsTo)
@@ -134,16 +250,105 @@ namespace Nortwind_API.Models
 
             modelBuilder.Entity<Invoice>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Invoices");
 
-                entity.Property(e => e.CustomerId).IsFixedLength();
+                entity.Property(e => e.Address).HasMaxLength(60);
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .HasColumnName("CustomerID")
+                    .IsFixedLength();
+
+                entity.Property(e => e.CustomerName).HasMaxLength(40);
+
+                entity.Property(e => e.ExtendedPrice).HasColumnType("money");
+
+                entity.Property(e => e.Freight).HasColumnType("money");
+
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.PostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.Region).HasMaxLength(15);
+
+                entity.Property(e => e.RequiredDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Salesperson).HasMaxLength(31);
+
+                entity.Property(e => e.ShipAddress).HasMaxLength(60);
+
+                entity.Property(e => e.ShipCity).HasMaxLength(15);
+
+                entity.Property(e => e.ShipCountry).HasMaxLength(15);
+
+                entity.Property(e => e.ShipName).HasMaxLength(40);
+
+                entity.Property(e => e.ShipPostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.ShipRegion).HasMaxLength(15);
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ShipperName).HasMaxLength(40);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
             });
 
-            modelBuilder.Entity<Employee>(entity =>
+            modelBuilder.Entity<Order>(entity =>
             {
-                entity.Property(e => e.CustomerId).IsFixedLength();
+                entity.HasIndex(e => e.CustomerId, "CustomerId");
 
-                entity.Property(e => e.Freight).HasDefaultValueSql("((0))");
+                entity.HasIndex(e => e.CustomerId, "CustomersOrders");
+
+                entity.HasIndex(e => e.EmployeeId, "EmployeeId");
+
+                entity.HasIndex(e => e.EmployeeId, "EmployeesOrders");
+
+                entity.HasIndex(e => e.OrderDate, "OrderDate");
+
+                entity.HasIndex(e => e.ShipPostalCode, "ShipPostalCode");
+
+                entity.HasIndex(e => e.ShippedDate, "ShippedDate");
+
+                entity.HasIndex(e => e.ShipVia, "ShippersOrders");
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .IsFixedLength();
+
+                entity.Property(e => e.Freight)
+                    .HasColumnType("money")
+                    .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.RequiredDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ShipAddress).HasMaxLength(60);
+
+                entity.Property(e => e.ShipCity).HasMaxLength(15);
+
+                entity.Property(e => e.ShipCountry).HasMaxLength(15);
+
+                entity.Property(e => e.ShipName).HasMaxLength(40);
+
+                entity.Property(e => e.ShipPostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.ShipRegion).HasMaxLength(15);
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
@@ -166,7 +371,19 @@ namespace Nortwind_API.Models
                 entity.HasKey(e => new { e.OrderId, e.ProductId })
                     .HasName("PK_Order_Details");
 
+                entity.ToTable("Order Details");
+
+                entity.HasIndex(e => e.OrderId, "OrderId");
+
+                entity.HasIndex(e => e.OrderId, "OrdersOrder_Details");
+
+                entity.HasIndex(e => e.ProductId, "ProductId");
+
+                entity.HasIndex(e => e.ProductId, "ProductsOrder_Details");
+
                 entity.Property(e => e.Quantity).HasDefaultValueSql("((1))");
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
 
                 entity.HasOne(d => d.Order)
                     .WithMany(p => p.OrderDetails)
@@ -183,26 +400,101 @@ namespace Nortwind_API.Models
 
             modelBuilder.Entity<OrderDetailsExtended>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Order Details Extended");
+
+                entity.Property(e => e.ExtendedPrice).HasColumnType("money");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
             });
 
             modelBuilder.Entity<OrderSubtotal>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Order Subtotals");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.Subtotal).HasColumnType("money");
             });
 
             modelBuilder.Entity<OrdersQry>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Orders Qry");
 
-                entity.Property(e => e.CustomerId).IsFixedLength();
+                entity.Property(e => e.Address).HasMaxLength(60);
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .HasColumnName("CustomerID")
+                    .IsFixedLength();
+
+                entity.Property(e => e.EmployeeId).HasColumnName("EmployeeID");
+
+                entity.Property(e => e.Freight).HasColumnType("money");
+
+                entity.Property(e => e.OrderDate).HasColumnType("datetime");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.PostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.Region).HasMaxLength(15);
+
+                entity.Property(e => e.RequiredDate).HasColumnType("datetime");
+
+                entity.Property(e => e.ShipAddress).HasMaxLength(60);
+
+                entity.Property(e => e.ShipCity).HasMaxLength(15);
+
+                entity.Property(e => e.ShipCountry).HasMaxLength(15);
+
+                entity.Property(e => e.ShipName).HasMaxLength(40);
+
+                entity.Property(e => e.ShipPostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.ShipRegion).HasMaxLength(15);
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Product>(entity =>
             {
+                entity.HasIndex(e => e.CategoryId, "CategoriesProducts");
+
+                entity.HasIndex(e => e.CategoryId, "CategoryId");
+
+                entity.HasIndex(e => e.ProductName, "ProductName");
+
+                entity.HasIndex(e => e.SupplierId, "SupplierId");
+
+                entity.HasIndex(e => e.SupplierId, "SuppliersProducts");
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.QuantityPerUnit).HasMaxLength(20);
+
                 entity.Property(e => e.ReorderLevel).HasDefaultValueSql("((0))");
 
-                entity.Property(e => e.UnitPrice).HasDefaultValueSql("((0))");
+                entity.Property(e => e.UnitPrice)
+                    .HasColumnType("money")
+                    .HasDefaultValueSql("((0))");
 
                 entity.Property(e => e.UnitsInStock).HasDefaultValueSql("((0))");
 
@@ -221,24 +513,57 @@ namespace Nortwind_API.Models
 
             modelBuilder.Entity<ProductSalesFor1997>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Product Sales for 1997");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.ProductSales).HasColumnType("money");
             });
 
             modelBuilder.Entity<ProductsAboveAveragePrice>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Products Above Average Price");
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.UnitPrice).HasColumnType("money");
             });
 
             modelBuilder.Entity<ProductsByCategory>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Products by Category");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.QuantityPerUnit).HasMaxLength(20);
             });
 
             modelBuilder.Entity<QuarterlyOrder>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Quarterly Orders");
 
-                entity.Property(e => e.CustomerId).IsFixedLength();
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.CustomerId)
+                    .HasMaxLength(5)
+                    .HasColumnName("CustomerID")
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<Region>(entity =>
@@ -246,29 +571,107 @@ namespace Nortwind_API.Models
                 entity.HasKey(e => e.RegionId)
                     .IsClustered(false);
 
-                entity.Property(e => e.RegionId).ValueGeneratedNever();
+                entity.ToTable("Region");
 
-                entity.Property(e => e.RegionDescription).IsFixedLength();
+                entity.Property(e => e.RegionId)
+                    .ValueGeneratedNever()
+                    .HasColumnName("RegionID");
+
+                entity.Property(e => e.RegionDescription)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
             });
 
             modelBuilder.Entity<SalesByCategory>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Sales by Category");
+
+                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+
+                entity.Property(e => e.CategoryName).HasMaxLength(15);
+
+                entity.Property(e => e.ProductName).HasMaxLength(40);
+
+                entity.Property(e => e.ProductSales).HasColumnType("money");
             });
 
             modelBuilder.Entity<SalesTotalsByAmount>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Sales Totals by Amount");
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.SaleAmount).HasColumnType("money");
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+            });
+
+            modelBuilder.Entity<Shipper>(entity =>
+            {
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.Phone).HasMaxLength(24);
             });
 
             modelBuilder.Entity<SummaryOfSalesByQuarter>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Summary of Sales by Quarter");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Subtotal).HasColumnType("money");
             });
 
             modelBuilder.Entity<SummaryOfSalesByYear>(entity =>
             {
+                entity.HasNoKey();
+
                 entity.ToView("Summary of Sales by Year");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ShippedDate).HasColumnType("datetime");
+
+                entity.Property(e => e.Subtotal).HasColumnType("money");
+            });
+
+            modelBuilder.Entity<Supplier>(entity =>
+            {
+                entity.HasIndex(e => e.CompanyName, "CompanyName");
+
+                entity.HasIndex(e => e.PostalCode, "PostalCode");
+
+                entity.Property(e => e.Address).HasMaxLength(60);
+
+                entity.Property(e => e.City).HasMaxLength(15);
+
+                entity.Property(e => e.CompanyName).HasMaxLength(40);
+
+                entity.Property(e => e.ContactName).HasMaxLength(30);
+
+                entity.Property(e => e.ContactTitle).HasMaxLength(30);
+
+                entity.Property(e => e.Country).HasMaxLength(15);
+
+                entity.Property(e => e.Fax).HasMaxLength(24);
+
+                entity.Property(e => e.HomePage).HasColumnType("ntext");
+
+                entity.Property(e => e.Phone).HasMaxLength(24);
+
+                entity.Property(e => e.PostalCode).HasMaxLength(10);
+
+                entity.Property(e => e.Region).HasMaxLength(15);
             });
 
             modelBuilder.Entity<Territory>(entity =>
@@ -276,7 +679,15 @@ namespace Nortwind_API.Models
                 entity.HasKey(e => e.TerritoryId)
                     .IsClustered(false);
 
-                entity.Property(e => e.TerritoryDescription).IsFixedLength();
+                entity.Property(e => e.TerritoryId)
+                    .HasMaxLength(20)
+                    .HasColumnName("TerritoryID");
+
+                entity.Property(e => e.RegionId).HasColumnName("RegionID");
+
+                entity.Property(e => e.TerritoryDescription)
+                    .HasMaxLength(50)
+                    .IsFixedLength();
 
                 entity.HasOne(d => d.Region)
                     .WithMany(p => p.Territories)
